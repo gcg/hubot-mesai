@@ -22,8 +22,6 @@ now = new Date
 
 isItWorkDay = if now.getDay() < 6 then true else false
 
-alert(isItWorkDay)
-
 hoursLeft = Math.round(18 - now.getHours())
 minutesLeft = Math.round(60 - now.getMinutes())
 
