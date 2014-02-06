@@ -37,3 +37,5 @@ else
 module.exports = (robot) ->
   robot.hear /mesai/i, (msg) ->
     msg.send resp
+  robot.hear /sıkıldım/i, (msg) ->
+    msg.send resp 
