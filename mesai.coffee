@@ -27,7 +27,7 @@ minutesLeft = Math.round(60 - now.getMinutes())
 
 if isItWorkDay
   if hoursLeft < 0
-    resp = "\o/ no more work for today, go & have fun"
+    resp = "\\o/ no more work for today, go & have fun"
   else 
     resp = "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there"   
   
