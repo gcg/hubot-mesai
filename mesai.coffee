@@ -22,20 +22,17 @@ now = new Date
 
 isItWorkDay = if now.getDay() < 6 then true else false
 
-hoursLeft = Math.round(18 - now.getHours())
+hoursLeft = new Number(Math.round(18 - now.getHours()))
 minutesLeft = Math.round(60 - now.getMinutes())
 
+stillMesai = hoursLeft > 0
+
 if isItWorkDay
-  if hoursLeft < 0
-    resp = "\\o/ no more work for today, go & have fun"
-  else 
-    resp = "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there"   
+	resp = if stillMesai then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"
   
 else 
  resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
 
 module.exports = (robot) ->
-  robot.hear /mesai/i, (msg) ->
+  robot.hear /mesai|sıkıldım/i, (msg) ->
     msg.send resp
-  robot.hear /sıkıldım/i, (msg) ->
-    msg.send resp 
