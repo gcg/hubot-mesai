@@ -51,7 +51,7 @@ module.exports = (robot) ->
     saveEndofshift(msg, msg.message.user.name, msg.match[1], msg.match[2])
     save(robot)
   robot.respond /I work (\d+) days/i, (msg) -> 
-    saveEndofshift(msg, msg.message.user.name, msg.match[1], msg.match[2])
+    saveDays(msg, msg.message.user.name, msg.match[1], msg.match[2])
     save(robot)  
   robot.respond /When will my shift end/i, (msg) -> 
     username = msg.message.user.name.toLowerCase()
