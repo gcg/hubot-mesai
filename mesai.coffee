@@ -19,6 +19,7 @@
 hafiza = {}
 
 saveEndofshift = (msg, username, endofshiftHH, endofshiftMM) ->
+  msg.send "func called"
   data = {}
   data[endofshift] = endofshiftHH+":"+endofshiftMM
   hafiza[username.toLowerCase()] ?= {}
@@ -50,6 +51,7 @@ module.exports = (robot) ->
     msg.send resp
 
   robot.respond /My shift ends at (\d+):(\d+)/i, (msg) -> 
+    msg.send "I hear you"
     saveEndofshift(msg, msg.message.username, msg.match[1], msg.match[2])
     save(robot)
   robot.respond /I work (\d+) days/i, (msg) -> 
