@@ -37,5 +37,5 @@ module.exports = (robot) ->
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
     msg.send resp
 
-  robot.responde /I got off work at (\d+):(\d+)/i, (msg) -> 
+  robot.respond /I got off work at (\d+):(\d+)/i, (msg) -> 
     msg.send msg.match[1]+" - "+msg.match[2] 
