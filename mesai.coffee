@@ -38,10 +38,17 @@ module.exports = (robot) ->
     hafiza = robot.brain.data.hafiza or {}	
 
   robot.hear /mesai/i, (msg) ->
+    username = msg.message.user.name.toLowerCase()
+    hafiza[username] ?= {}
+    hafiza[username]["endofshift"] ?= "18:00"
+    hafiza[username]["days"] ?= 5
+
+    hour = hafiza[username]["endofshift"].split(":")
+
     now = new Date
-    hoursLeft = new Number(Math.round(18 - now.getHours()))
+    hoursLeft = new Number(Math.round(new Number(hour[0]) - now.getHours()))
     minutesLeft = Math.round(60 - now.getMinutes())
-    if 0 < now.getDay() < 6
+    if 0 < now.getDay() < new number(hafiza[username]["days"])
       resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"	  
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
