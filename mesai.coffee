@@ -19,12 +19,9 @@
 hafiza = {}
 
 saveEndofshift = (msg, username, endofshiftHH, endofshiftMM) ->
-  msg.send "func called with username: "+username+" endofshiftHH: "+endofshiftHH+" and endofshiftMM: "+endofshiftMM
   hafiza[username] ?= {}
-  msg.send "username space declered"
   hafiza[username]["endofshift"] = endofshiftHH+":"+endofshiftMM
-  msg.send "after preperation"
-  msg.send "Ok, from now on I know that your shift ends at "+hafiza[username][endofshift]
+  msg.send "Ok, from now on I know that your shift ends at "+hafiza[username]["endofshift"]
 
 saveDays = (msg, username, days) ->
   data = {}
@@ -51,7 +48,6 @@ module.exports = (robot) ->
     msg.send resp
 
   robot.respond /My shift ends at (\d+):(\d+)/i, (msg) -> 
-    msg.send "I hear you "
     saveEndofshift(msg, msg.message.user.name, msg.match[1], msg.match[2])
     save(robot)
   robot.respond /I work (\d+) days/i, (msg) -> 
