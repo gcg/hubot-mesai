@@ -47,6 +47,8 @@ module.exports = (robot) ->
 
     if hafiza[username]["endofshiftMM"] == 0 then hafiza[username]["endofshiftMM"] = 60 
 
+    if hafiza[username]["endofshiftMM"] > 60 then hafiza[username]["endofshiftMM"] = 60 
+
     now = new Date
     hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
     minutesLeft = Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes())
@@ -68,10 +70,11 @@ module.exports = (robot) ->
     hafiza[username]["endofshiftHH"] ?= "18"
     hafiza[username]["endofshiftMM"] ?= "00"
     if hafiza[username]["endofshiftMM"] == "0" then hafiza[username]["endofshiftMM"] = "00"
+    if hafiza[username]["endofshiftMM"] > "59" then hafiza[username]["endofshiftMM"] = "00"
     
     hafiza[username]["days"] ?= "5"
     msg.send "Your shift ends at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and you work "+hafiza[username]["days"]+" in one week."
-    
+
   robot.respond /mesai help/i, (msg) -> 
     msg.send "You can just mention the word: mesai and I tell you how much time left until you started the PARTY!"  
     msg.send "You can tell me to rememmber when your shift ends with the command: My shift ends at HH:MM"
