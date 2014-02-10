@@ -54,7 +54,7 @@ module.exports = (robot) ->
     msg.send resp
 
   robot.respond /My shift ends at (\d+):(\d+)/i, (msg) -> 
-    msg.send "I hear you "+hafiza
+    msg.send "I hear you "
     saveEndofshift(msg, msg.message.user.name, msg.match[1], msg.match[2])
     save(robot)
   robot.respond /I work (\d+) days/i, (msg) -> 
