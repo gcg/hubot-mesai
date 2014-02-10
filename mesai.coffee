@@ -20,7 +20,6 @@ hafiza = {}
 
 remember = (msg, username, days, endofshift) ->
 	data = {}
-	data[]
     hafiza[username.toLowerCase()] ?= {}
     hafiza[username.toLowerCase()] = data
     msg.send "Ok, from now on I know that you get off work at "+endofshift+" end you work "+days+" days in one week."
