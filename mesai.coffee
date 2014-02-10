@@ -20,8 +20,9 @@ hafiza = {}
 
 saveEndofshift = (msg, username, endofshiftHH, endofshiftMM) ->
   hafiza[username] ?= {}
-  hafiza[username]["endofshift"] = endofshiftHH+":"+endofshiftMM
-  msg.send "Ok, from now on I know that your shift ends at "+hafiza[username]["endofshift"]
+  hafiza[username]["endofshiftHH"] = endofshiftHH
+  hafiza[username]["endofshiftMM"] = endofshiftMM
+  msg.send "Ok, from now on I know that your shift ends at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]
 
 saveDays = (msg, username, days) ->
   data = {}
@@ -40,15 +41,16 @@ module.exports = (robot) ->
   robot.hear /mesai/i, (msg) ->
     username = msg.message.user.name.toLowerCase()
     hafiza[username] ?= {}
-    hafiza[username]["endofshift"] ?= "18:00"
+    hafiza[username]["endofshiftHH"] ?= 18
+    hafiza[username]["endofshiftMM"] ?= 60
     hafiza[username]["days"] ?= 5
 
-    hour = hafiza[username]["endofshift"].split(":")
+    if hafiza[username]["endofshiftMM"] == 0 then hafiza[username]["endofshiftMM"] = 60 
 
     now = new Date
-    hoursLeft = new Number(Math.round(new Number(hour[0]) - now.getHours()))
-    minutesLeft = Math.round(60 - now.getMinutes())
-    if 0 < now.getDay() < new number(hafiza[username]["days"])
+    hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
+    minutesLeft = Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes())
+    if 0 < now.getDay() < new Number(hafiza[username]["days"]) +1 
       resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"	  
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
@@ -63,6 +65,7 @@ module.exports = (robot) ->
   robot.respond /When will my shift end/i, (msg) -> 
     username = msg.message.user.name.toLowerCase()
     hafiza[username] ?= {}
-    hafiza[username]["endofshift"] ?= "18:00"
+    hafiza[username]["endofshiftHH"] ?= 18
+    hafiza[username]["endofshiftMM"] ?= 00
     hafiza[username]["days"] ?= "5"
-    msg.send "Your shift ends at "+hafiza[username]["endofshift"]+" and you work "+hafiza[username]["days"]+" in one week."
+    msg.send "Your shift ends at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and you work "+hafiza[username]["days"]+" in one week."
