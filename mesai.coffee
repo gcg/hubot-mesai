@@ -55,12 +55,12 @@ module.exports = (robot) ->
 
   robot.respond /My shift ends at (\d+):(\d+)/i, (msg) -> 
     msg.send "I hear you "+hafiza
-    saveEndofshift(msg, msg.message.username, msg.match[1], msg.match[2])
+    saveEndofshift(msg, msg.message.user.name, msg.match[1], msg.match[2])
     save(robot)
   robot.respond /I work (\d+) days/i, (msg) -> 
-    saveEndofshift(msg, msg.message.username, msg.match[1], msg.match[2])
+    saveEndofshift(msg, msg.message.user.name, msg.match[1], msg.match[2])
     save(robot)  
   robot.respond /When will my shift end/i, (msg) -> 
-    username = msg.message.username.toLowerCase()
+    username = msg.message.user.name.toLowerCase()
     hafiza[username] ?= {}
     msg.send "Your shift ends at "+hafiza[username][endofshift]+" and you work "+hafiza[username][days]+" in one week."
