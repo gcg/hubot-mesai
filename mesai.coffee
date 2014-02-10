@@ -22,13 +22,13 @@ saveEndofshift = (msg, username, endofshiftHH, endofshiftMM) ->
   msg.send "func called with username: "+username+" endofshiftHH: "+endofshiftHH+" and endofshiftMM: "+endofshiftMM
   hafiza[username] ?= {}
   msg.send "username space declered"
-  hafiza[username][endofshift] = endofshiftHH+":"+endofshiftMM
+  hafiza[username]["endofshift"] = endofshiftHH+":"+endofshiftMM
   msg.send "after preperation"
   msg.send "Ok, from now on I know that your shift ends at "+hafiza[username][endofshift]
 
 saveDays = (msg, username, days) ->
   data = {}
-  data[days] = days
+  data["days"] = days
   hafiza[username.toLowerCase()] ?= {}
   hafiza[username.toLowerCase()] = data
   msg.send "Ok, from now on I know that you work "+days+" days in a week"  
