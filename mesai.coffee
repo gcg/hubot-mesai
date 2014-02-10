@@ -23,10 +23,8 @@ module.exports = (robot) ->
     now = new Date
     hoursLeft = new Number(Math.round(18 - now.getHours()))
     minutesLeft = Math.round(60 - now.getMinutes())
-
     if 0 < now.getDay() < 6
       resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"	  
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
-
     msg.send resp
