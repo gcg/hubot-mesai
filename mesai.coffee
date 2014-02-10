@@ -19,7 +19,7 @@
 hafiza = {}
 
 saveEndofshift = (msg, username, endofshiftHH, endofshiftMM) ->
-  msg.send "func called"
+  msg.send "func called with username: "+username+" endofshiftHH: "+endofshiftHH+" and endofshiftMM: "+endofshiftMM
   hafiza[username] ?= {}
   msg.send "username space declered"
   tmp = {}
