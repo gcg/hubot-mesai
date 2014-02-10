@@ -36,7 +36,7 @@ else
 module.exports = (robot) ->
   robot.hear /mesai|sıkıldım/i, (msg) ->
     msg.send resp
-  robot.hear /mesaidebug/i, (msg) ->
+  robot.hear /debugtime/i, (msg) ->
   	msg.send "Time ise: " + now
   	msg.send "hoursLeft: "+hoursLeft+" minutesLeft: "+minutesLeft 
     msg.send resp  
