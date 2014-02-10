@@ -18,16 +18,28 @@
 
 hafiza = {}
 
-remember = (msg, username, days, endofshift) ->
+saveEndofshift = (msg, username, endofshiftHH, endofshiftMM) ->
   data = {}
+  data[endofshift] = endofshiftHH+":"+endofshiftMM
   hafiza[username.toLowerCase()] ?= {}
   hafiza[username.toLowerCase()] = data
-  msg.send "Ok, from now on I know that you get off work at "+endofshift+" end you work "+days+" days in one week."
+  msg.send "Ok, from now on I know that your shift ends at "+data[endofshift]
+
+saveDays = (msg, username, days) ->
+  data = {}
+  data[days] = days
+  hafiza[username.toLowerCase()] ?= {}
+  hafiza[username.toLowerCase()] = data
+  msg.send "Ok, from now on I know that you work "+days+" days in a week"  
+
+save = (robot) ->
+  robot.brain.data.hafiza = hafiza  
 
 module.exports = (robot) ->
   robot.brain.on 'loaded', ->
     hafiza = robot.brain.data.hafiza or {}	
-  robot.respond /mesai/i, (msg) ->
+
+  robot.hear /mesai/i, (msg) ->
     now = new Date
     hoursLeft = new Number(Math.round(18 - now.getHours()))
     minutesLeft = Math.round(60 - now.getMinutes())
@@ -37,5 +49,13 @@ module.exports = (robot) ->
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
     msg.send resp
 
-  robot.respond /I got off work at (\d+):(\d+)/i, (msg) -> 
-    msg.send msg.match[1]+" - "+msg.match[2] 
+  robot.respond /My shift ends at (\d+):(\d+)/i, (msg) -> 
+    saveEndofshift(msg, msg.message.username, msg.match[1], msg.match[2])
+    save(robot)
+  robot.respond /I work (\d+) days/i, (msg) -> 
+    saveEndofshift(msg, msg.message.username, msg.match[1], msg.match[2])
+    save(robot)  
+  robot.respond /When will my shift end/i, (msg) -> 
+    username = msg.message.username.toLowerCase()
+    hafiza[username] ?= {}
+    msg.send "Your shift ends at "+hafiza[username][endofshift]+" and you work "+hafiza[username][days]+" in one week."
