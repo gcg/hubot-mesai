@@ -16,10 +16,19 @@
 # Author:
 #   @gcg
 
+hafiza = {}
 
+remember = (msg, username, days, endofshift) ->
+	data = {}
+	data[]
+    hafiza[username.toLowerCase()] ?= {}
+    hafiza[username.toLowerCase()] = data
+    msg.send "Ok, from now on I know that you get off work at "+endofshift+" end you work "+days+" days in one week."
 
 module.exports = (robot) ->
-  robot.hear /mesai|sıkıldım/i, (msg) ->
+  robot.brain.on 'loaded', ->
+    hafiza = robot.brain.data.hafiza or {}	
+  robot.respond /mesai/i, (msg) ->
     now = new Date
     hoursLeft = new Number(Math.round(18 - now.getHours()))
     minutesLeft = Math.round(60 - now.getMinutes())
@@ -28,3 +37,6 @@ module.exports = (robot) ->
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
     msg.send resp
+
+  robot.responde /I got off work at (\d+):(\d+)/i -> 
+    msg.send msg.match[1]+" - "+msg.match[2] 
