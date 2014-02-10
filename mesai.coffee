@@ -20,7 +20,7 @@ resp = ""
 
 now = new Date
 
-isItWorkDay = if now.getDay() < 6 then true else false
+isItWorkDay = 0 < now.getDay() < 6
 
 hoursLeft = new Number(Math.round(18 - now.getHours()))
 minutesLeft = Math.round(60 - now.getMinutes())
@@ -36,3 +36,7 @@ else
 module.exports = (robot) ->
   robot.hear /mesai|sıkıldım/i, (msg) ->
     msg.send resp
+  robot.hear /mesaidebug/i, (msg) ->
+  	msg.send "Time ise: " + now
+  	msg.send "hoursLeft: "+hoursLeft+" minutesLeft: "+minutesLeft 
+    msg.send resp  
