@@ -29,4 +29,4 @@ module.exports = (robot) ->
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
 
-    msg.send resp+" debug date:"+now
+    msg.send resp
