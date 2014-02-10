@@ -19,24 +19,14 @@
 
 
 module.exports = (robot) ->
-	resp = ""
-
-	now = new Date
-
-	isItWorkDay = 0 < now.getDay() < 6
-
+  robot.hear /mesai|sıkıldım/i, (msg) ->
+  	now = new Date
 	hoursLeft = new Number(Math.round(18 - now.getHours()))
 	minutesLeft = Math.round(60 - now.getMinutes())
 
-	stillMesai = hoursLeft > 0
-
-	if isItWorkDay
-		resp = if stillMesai then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"
-	  
+	if 0 < now.getDay() < 6
+	 resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"	  
 	else 
 	 resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
-	
-  robot.hear /mesai|sıkıldım/i, (msg) ->
-    msg.send resp
-  robot.respond /debugtime/i, (msg) ->
-  	msg.send "Time ise: " + now + "hoursLeft: "+hoursLeft+" minutesLeft: "+minutesLeft + "Response is: "+ resp
+
+    msg.send resp+" debug date:"+now
