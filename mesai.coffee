@@ -65,7 +65,10 @@ module.exports = (robot) ->
   robot.respond /When will my shift end/i, (msg) -> 
     username = msg.message.user.name.toLowerCase()
     hafiza[username] ?= {}
-    hafiza[username]["endofshiftHH"] ?= 18
-    hafiza[username]["endofshiftMM"] ?= 00
+    hafiza[username]["endofshiftHH"] ?= "18"
+    hafiza[username]["endofshiftMM"] ?= "00"
+    if hafiza[username]["endofshiftMM"] == "0" then hafiza[username]["endofshiftMM"] = "00"
+
+    
     hafiza[username]["days"] ?= "5"
     msg.send "Your shift ends at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and you work "+hafiza[username]["days"]+" in one week."
