@@ -9,6 +9,9 @@
 #
 # Commands:
 #   <mesai> - <gives HH:MM response to how much time left for the work day to end>
+#   <When will my shift ends> - Responds with the working hour data at the brain
+#   <My shift ends at HH:MM> - Save your shift end time with HH:MM format (default: 18:00)
+#   <I work N days> - Save how many days that you work in one week (default: 5)
 #
 # Notes:
 #   None
