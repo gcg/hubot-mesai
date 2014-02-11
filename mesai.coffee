@@ -39,17 +39,33 @@ module.exports = (robot) ->
     hafiza = robot.brain.data.hafiza or {}	
 
   robot.hear /mesai/i, (msg) ->
+    msg.send "I heard you"
     username = msg.message.user.name.toLowerCase()
+    msg.send "Got your username as: "+username
     hafiza[username] ?= {}
     hafiza[username]["endofshiftHH"] ?= 18
     hafiza[username]["endofshiftMM"] ?= 60
     hafiza[username]["days"] ?= 5
 
-    
+    msg.send "Got your data HH: "+hafiza[username]["endofshiftHH"]
+    msg.send "Got your data MM: "+hafiza[username]["endofshiftMM"]
+    msg.send "Got your data days: "+hafiza[username]["days"]
+
+    hafiza[username]["endofshiftMM"] = 60 if hafiza[username]["endofshiftMM"] == 0
+    hafiza[username]["endofshiftMM"] = 60 if hafiza[username]["endofshiftMM"] > 60 
+
+    msg.send "Set your data HH: "+hafiza[username]["endofshiftHH"]
+    msg.send "Set your data MM: "+hafiza[username]["endofshiftMM"]
+    msg.send "Set your data days: "+hafiza[username]["days"]
 
     now = new Date
     hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
-    minutesLeft = Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes())
+    minutesLeft = new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes()))
+
+    msg.send "Got date: "+now
+    msg.send "Hoursleft: "+hoursLeft
+    msg.send "Minutes lef: "+minutesLeft
+
     if 0 < now.getDay() < new Number(hafiza[username]["days"]) +1 
       resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"	  
     else 
