@@ -45,9 +45,8 @@ module.exports = (robot) ->
     hafiza[username]["endofshiftMM"] ?= 60
     hafiza[username]["days"] ?= 5
 
-    if hafiza[username]["endofshiftMM"] == 0 then hafiza[username]["endofshiftMM"] = 60 
-
-    if hafiza[username]["endofshiftMM"] > 60 then hafiza[username]["endofshiftMM"] = 60 
+    hafiza[username]["endofshiftMM"] = 60 if if hafiza[username]["endofshiftMM"] == 0
+    hafiza[username]["endofshiftMM"] = 60 if if hafiza[username]["endofshiftMM"] > 60 
 
     now = new Date
     hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
