@@ -52,6 +52,8 @@ module.exports = (robot) ->
     hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
     minutesLeft = new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes()))
     minutesLeft = 0 if minutesLeft < 0
+    hoursLeft = hoursLeft - 1 if minutesLeft > 0
+
 
     days = new Number(hafiza[username]["days"] + 1)
 
