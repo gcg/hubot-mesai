@@ -13,7 +13,7 @@
 #   <When will USERNAME get off work> - Responds with the working hour data at the brain for USERNAME
 #   <My shift ends at HH:MM> - Save your shift end time with HH:MM format (default: 18:00)
 #   <I work N days> - Save how many days that you work in one week (default: 5)
-#   <mesai USERNAME> - <gives HH:MM response to how much time left for username for work day to end>
+#   <m USERNAME> - <gives HH:MM response to how much time left for username for work day to end>
 #
 # Notes:
 #   None
@@ -97,8 +97,9 @@ module.exports = (robot) ->
     msg.send username+"'s shift will end at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and works "+hafiza[username]["days"]+" days in one week."
 
 
-  robot.respond /mesai (.*?)/i, (msg) -> 
+  robot.respond /m (.*?)/i, (msg) -> 
     username = msg.match[1].toLowerCase()
+    msg.respond username
     hafiza[username] ?= {}
     hafiza[username]["endofshiftHH"] ?= 18
     hafiza[username]["endofshiftMM"] ?= 60
