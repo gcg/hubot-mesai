@@ -99,7 +99,7 @@ module.exports = (robot) ->
 
   robot.respond /m (.*?)/i, (msg) -> 
     username = msg.match[1].toLowerCase()
-    msg.send username
+    msg.send "Username: "+username
     hafiza[username] ?= {}
     hafiza[username]["endofshiftHH"] ?= 18
     hafiza[username]["endofshiftMM"] ?= 60
