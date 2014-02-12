@@ -97,7 +97,7 @@ module.exports = (robot) ->
     msg.send username+"'s shift will end at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and works "+hafiza[username]["days"]+" days in one week."
 
 
-  robot.respond /m (.*?)/i, (msg) -> 
+  robot.respond /m (.*?)\s?$/i, (msg) -> 
     username = msg.match[1].toLowerCase()
     msg.send "Username: "+username
     hafiza[username] ?= {}
