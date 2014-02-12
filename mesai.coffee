@@ -111,13 +111,15 @@ module.exports = (robot) ->
     hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
     minutesLeft = new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes()))
 
-    msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
+    #msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
 
-    minutesLeft = 0 if minutesLeft < 0
-    hoursLeft = hoursLeft - 1 if 0 < minutesLeft and hafiza[username]["endofshiftMM"] < 60
+    #minutesLeft = 0 if minutesLeft < 0
+    #hoursLeft = hoursLeft - 1 if 0 < minutesLeft and hafiza[username]["endofshiftMM"] < 60
 
-    msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
-
+    #msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
+    if minutesLeft < 0
+      hoursLeft = hoursLeft - 1
+      minutesLeft = minutesLeft + 60
     days = new Number(hafiza[username]["days"] + 1)
 
     if 0 < now.getDay() < days
