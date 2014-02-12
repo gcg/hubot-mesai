@@ -121,6 +121,9 @@ module.exports = (robot) ->
     hoursLeft = hoursLeft - 1 if 0 < minutesLeft and hafiza[username]["endofshiftMM"] == 60
     hoursLeft = hoursLeft - 1 if new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes())) < 0 and hafiza[username]["endofshiftMM"] < 60
 
+    msg.send "H: "+hoursLeft
+    msg.send "M: "+minutesLeft
+
     days = new Number(hafiza[username]["days"] + 1)
 
     if 0 < now.getDay() < days
