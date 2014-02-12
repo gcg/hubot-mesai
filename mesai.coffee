@@ -67,7 +67,7 @@ module.exports = (robot) ->
     days = new Number(hafiza[username]["days"] + 1)
 
     if 0 < now.getDay() < days
-      resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"	  
+      resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else if hoursLeft == 0 and minutesLeft > 0 then "You have only "+minutesLeft+" minutes left. It's almost over." else "\\o/ no more work for today, go & have fun"	  
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
     msg.send resp
@@ -124,7 +124,7 @@ module.exports = (robot) ->
     days = new Number(hafiza[username]["days"] + 1)
 
     if 0 < now.getDay() < days
-      resp = if hoursLeft > 0 then username+" has "+hoursLeft+" hours and "+minutesLeft+" minutes left to go" else "\\o/ no more work for today, go & have fun"   
+      resp = if hoursLeft > 0 then username+" has "+hoursLeft+" hours and "+minutesLeft+" minutes left to go" else if hoursLeft == 0 and minutesLeft > 0  then username+" has only "+minutesLeft+ " minutes left" else "\\o/ no more work for today, go & have fun"   
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
     msg.send resp
