@@ -112,7 +112,7 @@ module.exports = (robot) ->
     minutesLeft = new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes()))
 
     minutesLeft = 0 if minutesLeft < 0 and hafiza[username]["endofshiftMM"] == 60
-    minutesLeft = 60 - (hafiza[username]["endofshiftMM"] + Math.abs(minutesLeft)) if minutesLeft < 0 and hafiza[username]["endofshiftMM"] < 60
+    minutesLeft = 60 - (new Number(hafiza[username]["endofshiftMM"]) + Math.abs(minutesLeft)) if minutesLeft < 0 and hafiza[username]["endofshiftMM"] < 60
 
     hoursLeft = hoursLeft - 1 if 0 < minutesLeft and hafiza[username]["endofshiftMM"] == 60
     hoursLeft = hoursLeft - 1 if new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes())) < 0 and hafiza[username]["endofshiftMM"] < 60
