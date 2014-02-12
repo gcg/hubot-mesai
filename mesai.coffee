@@ -9,9 +9,11 @@
 #
 # Commands:
 #   <mesai> - <gives HH:MM response to how much time left for the work day to end>
-#   <When will my shift ends> - Responds with the working hour data at the brain
+#   <When will my shift end> - Responds with the working hour data at the brain
+#   <When will USERNAME get off work> - Responds with the working hour data at the brain for USERNAME
 #   <My shift ends at HH:MM> - Save your shift end time with HH:MM format (default: 18:00)
 #   <I work N days> - Save how many days that you work in one week (default: 5)
+#   <mesai USERNAME> - <gives HH:MM response to how much time left for username for work day to end>
 #
 # Notes:
 #   None
@@ -72,7 +74,7 @@ module.exports = (robot) ->
   robot.respond /I work (\d+) days/i, (msg) -> 
     saveDays(msg, msg.message.user.name, msg.match[1], msg.match[2])
     save(robot)  
-  robot.respond /When will my shift ends/i, (msg) -> 
+  robot.respond /When will my shift end/i, (msg) -> 
     username = msg.message.user.name.toLowerCase()
     hafiza[username] ?= {}
     hafiza[username]["endofshiftHH"] ?= "18"
@@ -81,11 +83,41 @@ module.exports = (robot) ->
     if hafiza[username]["endofshiftMM"] > "59" then hafiza[username]["endofshiftMM"] = "00"
     
     hafiza[username]["days"] ?= "5"
-    msg.send "Your shift ends at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and you work "+hafiza[username]["days"]+" in one week."
+    msg.send "Your shift will end at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and you work "+hafiza[username]["days"]+" days in one week."
 
-  robot.respond /mesai help/i, (msg) -> 
-    msg.send "You can just mention the word: mesai and I tell you how much time left until you started the PARTY!"  
-    msg.send "You can tell me to rememmber when your shift ends with the command: My shift ends at HH:MM"
-    msg.send "You can tell me how many days that you work in a week with the command: I work N days"
-    msg.send "You can check your settings with the command: Whel will my shift ends"
+  robot.respond /When will (.*?) get off work/i, (msg) ->
+    username = msg.match[1].toLowerCase()
+    hafiza[username] ?= {}
+    hafiza[username]["endofshiftHH"] ?= "18"
+    hafiza[username]["endofshiftMM"] ?= "00"
+    if hafiza[username]["endofshiftMM"] == "0" then hafiza[username]["endofshiftMM"] = "00"
+    if hafiza[username]["endofshiftMM"] > "59" then hafiza[username]["endofshiftMM"] = "00"
+    
+    hafiza[username]["days"] ?= "5"
+    msg.send username+"'s shift will end at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and you work "+hafiza[username]["days"]+" days in one week."
 
+
+  robot.respond /mesai (.*?)/i, (msg) -> 
+    username = msg.match[1].toLowerCase()
+    hafiza[username] ?= {}
+    hafiza[username]["endofshiftHH"] ?= 18
+    hafiza[username]["endofshiftMM"] ?= 60
+    hafiza[username]["days"] ?= 5
+
+    hafiza[username]["endofshiftMM"] = 60 if hafiza[username]["endofshiftMM"] == "00"
+    hafiza[username]["endofshiftMM"] = 60 if hafiza[username]["endofshiftMM"] > 60 
+
+    now = new Date
+    hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
+    minutesLeft = new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes()))
+    minutesLeft = 0 if minutesLeft < 0
+    hoursLeft = hoursLeft - 1 if minutesLeft > 0
+
+
+    days = new Number(hafiza[username]["days"] + 1)
+
+    if 0 < now.getDay() < days
+      resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"   
+    else 
+      resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
+    msg.send resp
