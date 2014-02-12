@@ -129,6 +129,9 @@ module.exports = (robot) ->
     msg.send "H: "+hoursLeft
     msg.send "M: "+minutesLeft
 
+    hoursLeft = parseInt(hoursLeft)
+    minutesLeft = parseInt(minutesLeft)
+
     days = new Number(hafiza[username]["days"] + 1)
 
     if 0 < now.getDay() < days
