@@ -114,7 +114,7 @@ module.exports = (robot) ->
     msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
 
     minutesLeft = 0 if minutesLeft < 0
-    hoursLeft = hoursLeft - 1 if 0 < minutesLeft < 60
+    hoursLeft = hoursLeft - 1 if 0 < minutesLeft and hafiza[username]["endofshiftMM"] < 60
 
     msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
 
