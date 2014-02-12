@@ -94,7 +94,7 @@ module.exports = (robot) ->
     if hafiza[username]["endofshiftMM"] > "59" then hafiza[username]["endofshiftMM"] = "00"
     
     hafiza[username]["days"] ?= "5"
-    msg.send username+"'s shift will end at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and you work "+hafiza[username]["days"]+" days in one week."
+    msg.send username+"'s shift will end at "+hafiza[username]["endofshiftHH"]+":"+hafiza[username]["endofshiftMM"]+" and works "+hafiza[username]["days"]+" days in one week."
 
 
   robot.respond /mesai (.*?)/i, (msg) -> 
