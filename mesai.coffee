@@ -110,14 +110,18 @@ module.exports = (robot) ->
     now = new Date
     hoursLeft = new Number(Math.round(hafiza[username]["endofshiftHH"] - now.getHours()))
     minutesLeft = new Number(Math.round(hafiza[username]["endofshiftMM"] - now.getMinutes()))
+
+    msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
+
     minutesLeft = 0 if minutesLeft < 0
     hoursLeft = hoursLeft - 1 if 0 < minutesLeft < 60
 
+    msg.send "Hours left: "+hoursLeft+ " minutes left: "+minutesLeft
 
     days = new Number(hafiza[username]["days"] + 1)
 
     if 0 < now.getDay() < days
-      resp = if hoursLeft > 0 then "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go, hang in there" else "\\o/ no more work for today, go & have fun"   
+      resp = if hoursLeft > 0 then username+" has "+hoursLeft+" hours and "+minutesLeft+" minutes left to go" else "\\o/ no more work for today, go & have fun"   
     else 
       resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
     msg.send resp
