@@ -69,9 +69,9 @@ module.exports = (robot) ->
 
     if 0 < now.getDay() < days
       if hoursLeft > 0
-        resp = username+" has "+hoursLeft+" hours and "+minutesLeft+" minutes left to go"
+        resp = "You have "+hoursLeft+" hours and "+minutesLeft+" minutes left to go"
       else if hoursLeft == 0 and minutesLeft > 0
-        resp = username+" has only "+minutesLeft+ " minutes left"
+        resp = "You have only "+minutesLeft+ " minutes left"
       else 
        resp =  "\\o/ no more work for today, go & have fun"  
     else 
@@ -138,7 +138,7 @@ module.exports = (robot) ->
       else if hoursLeft == 0 and minutesLeft > 0
         resp = username+" has only "+minutesLeft+ " minutes left"
       else 
-       resp =  "\\o/ no more work for today, go & have fun"  
+       resp =  "\\o/ "+username+"'s shift ended for today"  
     else 
-      resp = if now.getDay() == 6 then "Life is a beach, enjoy it" else "I can, but I won't"
+      resp = username+" does not work today. "
     msg.send resp
